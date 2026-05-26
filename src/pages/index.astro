@@ -1,0 +1,33 @@
+---
+import { getEntry, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { useTranslations } from "../i18n";
+
+const locale = Astro.currentLocale ?? "en";
+const t = useTranslations(locale);
+
+const bioEntry =
+  (await getEntry("bio", locale)) ?? (await getEntry("bio", "en"));
+const { Content: BioContent } = bioEntry
+  ? await render(bioEntry)
+  : { Content: null };
+
+const title = t.pages.homeTitle;
+const subtitle = t.pages.homeSubtitle;
+---
+
+<BaseLayout title={title}>
+  <div class="container-narrow">
+    {
+      (title || subtitle) && (
+        <header class="page-header">
+          {title && <h1 class="page-title">{title}</h1>}
+          {subtitle && <p class="page-subtitle">{subtitle}</p>}
+        </header>
+      )
+    }
+    <div class="prose">
+      {BioContent && <BioContent />}
+    </div>
+  </div>
+</BaseLayout>

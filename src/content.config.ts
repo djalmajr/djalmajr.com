@@ -1,0 +1,74 @@
+import { defineCollection } from "astro:content";
+import { glob } from "astro/loaders";
+import { z } from "zod";
+
+const posts = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/posts" }),
+  schema: z.object({
+    title: z.string(),
+    date: z.string().optional(),
+    description: z.string().optional(),
+    author: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    external_url: z.string().optional(),
+    image: z.string().optional(),
+  }),
+});
+
+const bio = defineCollection({
+  loader: glob({ pattern: "*.md", base: "./src/content/bio" }),
+  schema: z.object({
+    name: z.string(),
+    avatar: z.string(),
+    shortBio: z.string().optional(),
+    institution: z.string().optional(),
+  }),
+});
+
+const projects = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    external_url: z.string().optional(),
+    image: z.string().optional(),
+    featured: z.boolean().optional(),
+  }),
+});
+
+const cv = defineCollection({
+  loader: glob({ pattern: "*.md", base: "./src/content/cv" }),
+  schema: z.object({
+    name: z.string(),
+    title: z.string(),
+    experience: z
+      .array(
+        z.object({
+          role: z.string(),
+          institution: z.string(),
+          period: z.string(),
+          description: z.string(),
+        })
+      )
+      .optional(),
+    education: z
+      .array(
+        z.object({
+          degree: z.string(),
+          institution: z.string(),
+          period: z.string(),
+          thesis: z.string().optional(),
+          description: z.string().optional(),
+        })
+      )
+      .optional(),
+  }),
+});
+
+export const collections = {
+  posts,
+  bio,
+  projects,
+  cv,
+};

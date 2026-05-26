@@ -1,0 +1,86 @@
+---
+import { getCollection } from "astro:content";
+import { getAbsoluteLocaleUrl, getRelativeLocaleUrl } from "astro:i18n";
+import BaseDetail from "../../layouts/BaseDetail.astro";
+import ShareButtons from "../../components/ui/ShareButtons.astro";
+import { sortPostsByDate } from "../../utils/posts";
+import { PAGES } from "../../config";
+import { useTranslations } from "../../i18n";
+
+const locale = Astro.currentLocale ?? "en";
+const t = useTranslations(locale);
+
+if (PAGES.blog.isActive === false) {
+  return Astro.redirect(getRelativeLocaleUrl(locale, "/404"));
+}
+
+export async function getStaticPaths() {
+  if (PAGES.blog.isActive === false) return [];
+  const posts = await getCollection("posts");
+  const sortedPosts = sortPostsByDate(posts);
+
+  return sortedPosts.map((post, i) => ({
+    params: { id: post.id },
+    props: {
+      post,
+      prevPost: i > 0 ? sortedPosts[i - 1] : null,
+      nextPost: i < sortedPosts.length - 1 ? sortedPosts[i + 1] : null,
+    },
+  }));
+}
+
+const { post, prevPost, nextPost } = Astro.props;
+const postUrl = getAbsoluteLocaleUrl(locale, `/posts/${post.id}`);
+const prevHref = prevPost
+  ? getRelativeLocaleUrl(locale, `/posts/${prevPost.id}`)
+  : "";
+const nextHref = nextPost
+  ? getRelativeLocaleUrl(locale, `/posts/${nextPost.id}`)
+  : "";
+---
+
+<BaseDetail collection="posts" id={post.id}>
+  <nav
+    slot="footer"
+    class="post-navigation container-narrow mt-24 flex justify-between gap-8 pt-12"
+  >
+    {
+      prevPost && (
+        <a
+          href={prevHref}
+          class="nav-prev group flex max-w-[45%] flex-col no-underline"
+        >
+          <span class="nav-label mb-2 text-[0.8rem] font-bold tracking-wider uppercase opacity-75">
+            {t.buttons.previousPost}
+          </span>
+          <span class="nav-title text-foreground group-hover:text-accent text-lg leading-snug font-semibold transition-colors duration-200">
+            {prevPost.data.title}
+          </span>
+        </a>
+      )
+    }
+    <div class="nav-spacer flex-1"></div>
+    {
+      nextPost && (
+        <a
+          href={nextHref}
+          class="nav-next group flex max-w-[45%] flex-col items-end text-right no-underline"
+        >
+          <span class="nav-label mb-2 text-[0.8rem] font-bold tracking-wider uppercase opacity-75">
+            {t.buttons.nextPost}
+          </span>
+          <span class="nav-title text-foreground group-hover:text-accent text-lg leading-snug font-semibold transition-colors duration-200">
+            {nextPost.data.title}
+          </span>
+        </a>
+      )
+    }
+  </nav>
+  <div slot="share" class="container-narrow">
+    <ShareButtons
+      title={post.data.title}
+      url={postUrl}
+      description={post.data.description}
+    />
+  </div>
+</BaseDetail>

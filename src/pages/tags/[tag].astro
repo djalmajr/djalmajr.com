@@ -1,0 +1,43 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BaseItemCard from "../../components/ui/BaseItemCard.astro";
+import { getAllTags, getContentByTag } from "../../utils/tags";
+import { getListingItem } from "../../utils/adapters";
+import { useTranslations, tplStr } from "../../i18n";
+
+export async function getStaticPaths() {
+  const tags = await getAllTags();
+  return tags.map(tag => ({
+    params: { tag: tag.name },
+    props: { tagName: tag.name },
+  }));
+}
+
+const { tagName } = Astro.props;
+
+const locale = Astro.currentLocale ?? "en";
+const t = useTranslations(locale);
+
+const content = await getContentByTag(tagName);
+---
+
+<BaseLayout title={`#${tagName}`}>
+  <header class="page-header">
+    <h1 class="page-title">#{tagName}</h1>
+    <p class="page-subtitle">{tplStr(t.tags.taggedWith, { tag: tagName })}</p>
+  </header>
+
+  <section class="item-list">
+    {
+      content.map(item => {
+        const listingItem = getListingItem(item);
+        const href = getRelativeLocaleUrl(
+          locale,
+          `/${item.collection}/${item.id}`
+        );
+        return <BaseItemCard {...listingItem} href={href} />;
+      })
+    }
+  </section>
+</BaseLayout>

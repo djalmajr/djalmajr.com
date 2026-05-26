@@ -1,0 +1,20 @@
+---
+import type { GetStaticPaths } from "astro";
+import { NonDefaultLocales } from "../../../i18n/locales";
+import { getAllTags } from "../../../utils/tags";
+import TagPage from "../../tags/[tag].astro";
+
+export const getStaticPaths = (async () => {
+  const tags = await getAllTags();
+  return NonDefaultLocales.flatMap(locale =>
+    tags.map(tag => ({
+      params: { locale, tag: tag.name },
+      props: { tagName: tag.name },
+    }))
+  );
+}) satisfies GetStaticPaths;
+
+const { tagName } = Astro.props;
+---
+
+<TagPage {tagName} />

@@ -1,0 +1,26 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import BaseListing from "../../layouts/BaseListing.astro";
+import { SITE, PAGES } from "../../config";
+import { sortPostsByDate } from "../../utils/posts";
+import { useTranslations } from "../../i18n";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  if (PAGES.blog.isActive === false) return [];
+  const posts = await getCollection("posts");
+  return paginate(sortPostsByDate(posts), { pageSize: SITE.postPerPage });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+
+const locale = Astro.currentLocale ?? "en";
+const t = useTranslations(locale);
+---
+
+<BaseListing
+  collection="posts"
+  title={t.pages.postsTitle}
+  subtitle={t.pages.postsSubtitle}
+  page={page}
+/>

@@ -1,0 +1,50 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { NAV_LINKS, PAGES } from "../../config";
+import { useTranslations } from "../../i18n";
+import type { UIStrings } from "../../i18n/types";
+
+const locale = Astro.currentLocale ?? "en";
+const t = useTranslations(locale);
+const currentPath = Astro.url.pathname;
+
+const links = NAV_LINKS.filter(link => {
+  if (link.external) return link.isActive !== false;
+  const isHome = link.href === "/";
+  const pageKey = isHome ? "home" : link.href.split("/").filter(Boolean)[0];
+  const pageConfig = (PAGES as any)[pageKey];
+  return link.isActive !== false && pageConfig?.isActive !== false;
+}).map(link => {
+  const href = link.external
+    ? link.href
+    : getRelativeLocaleUrl(locale, link.href);
+  const isHome = link.href === "/";
+  const isActive =
+    !link.external &&
+    (currentPath === href || (!isHome && currentPath.startsWith(href)));
+  const navKey = link.key as keyof UIStrings["nav"] | undefined;
+  const label =
+    navKey && t.nav[navKey] !== undefined ? t.nav[navKey] : link.label;
+  return { ...link, href, isActive, label };
+});
+---
+
+<nav class="navbar">
+  <ul class="nav-links">
+    {
+      links.map(link => (
+        <li>
+          <a
+            href={link.href}
+            target={link.external ? "_blank" : undefined}
+            rel={link.external ? "noopener noreferrer" : undefined}
+            class={`nav-link ${link.isActive ? "active" : "inactive"}`}
+          >
+            {link.label}
+            <span class="nav-link-line" />
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

@@ -1,0 +1,35 @@
+---
+import type { DisplayMeta } from "../../types";
+
+interface Props {
+  title: string;
+  meta?: DisplayMeta[];
+}
+
+const { title, meta = [] } = Astro.props;
+---
+
+<header class="page-header container-narrow">
+  {title && <h1 class="page-title">{title}</h1>}
+  {
+    meta.length > 0 && (
+      <div class="item-meta mt-6">
+        {meta.map((item, index) => (
+          <span class="flex items-center">
+            {index > 0 && <span class="mx-2 text-xs opacity-40">•</span>}
+            {item.datetime ? (
+              <time datetime={item.datetime}>{item.value}</time>
+            ) : (
+              <span>
+                {item.label && (
+                  <span class="font-medium opacity-60">{item.label}: </span>
+                )}
+                <span class="font-bold">{item.value}</span>
+              </span>
+            )}
+          </span>
+        ))}
+      </div>
+    )
+  }
+</header>

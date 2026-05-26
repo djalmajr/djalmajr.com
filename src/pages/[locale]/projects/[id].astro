@@ -1,0 +1,20 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import { NonDefaultLocales } from "../../../i18n/locales";
+import ProjectDetailPage from "../../projects/[id].astro";
+
+export const getStaticPaths = (async () => {
+  const projects = await getCollection("projects");
+  return NonDefaultLocales.flatMap(locale =>
+    projects.map(project => ({
+      params: { locale, id: project.id },
+      props: { project },
+    }))
+  );
+}) satisfies GetStaticPaths;
+
+const { project } = Astro.props;
+---
+
+<ProjectDetailPage {project} />

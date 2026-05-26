@@ -1,0 +1,19 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import BaseListing from "../../layouts/BaseListing.astro";
+import { PAGES } from "../../config";
+import { useTranslations } from "../../i18n";
+
+const locale = Astro.currentLocale ?? "en";
+const t = useTranslations(locale);
+
+if (PAGES.projects.isActive === false) {
+  return Astro.redirect(getRelativeLocaleUrl(locale, "/404"));
+}
+---
+
+<BaseListing
+  title={t.pages.projectsTitle}
+  subtitle={t.pages.projectsSubtitle}
+  collection="projects"
+/>

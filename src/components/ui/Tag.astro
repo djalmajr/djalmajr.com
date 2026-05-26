@@ -1,0 +1,26 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+interface Props {
+  name: string;
+  count?: number;
+  size?: "sm" | "md" | "lg";
+}
+
+const { name, count, size = "md" } = Astro.props;
+
+const locale = Astro.currentLocale ?? "en";
+
+const sizeClasses = {
+  sm: "text-xs",
+  md: "text-sm",
+  lg: "text-base",
+};
+
+const href = getRelativeLocaleUrl(locale, `/tags/${name.toLowerCase()}`);
+---
+
+<a href={href} class={`tag ${sizeClasses[size]}`}>
+  #{name}
+  {count !== undefined && <span class="ml-1 opacity-60">({count})</span>}
+</a>

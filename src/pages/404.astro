@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { useTranslations } from "../i18n";
+
+const locale = Astro.currentLocale ?? "en";
+const t = useTranslations(locale);
+---
+
+<BaseLayout title={t.notFound.title}>
+  <div
+    class="flex min-h-[50vh] flex-col items-center justify-center px-4 text-center"
+  >
+    <h1
+      class="text-accent mb-4 text-9xl leading-none font-black tracking-tighter sm:text-[12rem]"
+    >
+      404
+    </h1>
+    <p
+      class="text-foreground mb-8 text-2xl font-bold opacity-80"
+      aria-label={t.notFound.message}
+    >
+      {t.notFound.message}
+    </p>
+    <button
+      onclick="history.back()"
+      class="text-accent cursor-pointer border-none bg-transparent p-0 text-lg font-semibold decoration-2 underline-offset-8 transition-all duration-200 hover:underline"
+    >
+      {t.buttons.goBack}
+    </button>
+  </div>
+</BaseLayout>

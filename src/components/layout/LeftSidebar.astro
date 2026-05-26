@@ -1,0 +1,70 @@
+---
+import { getEntry } from "astro:content";
+import { SOCIALS, SOCIAL_ICONS } from "../../config";
+import { useTranslations } from "../../i18n";
+import Icon from "../ui/Icon.astro";
+
+const locale = Astro.currentLocale ?? "en";
+const t = useTranslations(locale);
+const activeSocials = SOCIALS.filter(s => s.isActive);
+const bioEntry =
+  (await getEntry("bio", locale)) ?? (await getEntry("bio", "en"));
+const bio = bioEntry?.data;
+---
+
+<aside
+  class="sidebar max-lg:flex-row max-lg:flex-wrap max-lg:gap-3 max-md:gap-2"
+>
+  <div
+    class="flex flex-col items-center text-center max-lg:flex-row max-lg:items-center max-lg:gap-3 max-lg:text-left max-md:gap-2"
+  >
+    {
+      bio?.avatar && (
+        <img
+          src={`/${bio.avatar}`}
+          alt={`Avatar of ${bio.name}`}
+          width={160}
+          height={160}
+          class="sidebar-avatar"
+          loading="eager"
+          decoding="async"
+        />
+      )
+    }
+    <div class="flex flex-col items-center max-lg:items-start">
+      {bio?.name && <h1 class="sidebar-name">{bio.name}</h1>}
+      {
+        bio?.institution && (
+          <p class="sidebar-info">
+            <Icon name="Institution" size={24} />
+            {bio.institution}
+          </p>
+        )
+      }
+      {
+        bio?.shortBio && (
+          <p class="sidebar-bio mt-2 max-md:hidden">{bio.shortBio}</p>
+        )
+      }
+      <div
+        class="mt-3 flex flex-wrap items-center justify-center gap-1 max-lg:justify-start"
+        aria-label={t.sidebar.socialLinks}
+      >
+        {
+          activeSocials.map(social => (
+            <a
+              href={social.href}
+              aria-label={social.linkTitle}
+              title={social.linkTitle}
+              target="_blank"
+              rel="noreferrer"
+              class="social-link"
+            >
+              <Icon name={SOCIAL_ICONS[social.name] || social.name} size={24} />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</aside>
