@@ -11,8 +11,6 @@ featured: true
 It runs as a desktop app (Tauri) and as a Chrome extension, rendering everything
 on your device — no account, no server, no telemetry.
 
-![AsciiMark welcome screen](/projects/asciimark/welcome.png)
-
 ## Purpose
 
 A fast, keyboard-first way to read and write technical docs straight from your
