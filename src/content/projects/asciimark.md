@@ -1,29 +1,44 @@
 ---
-title: "asciimark"
-description: "A local-first Markdown viewer and editor. Open, read and edit your notes entirely in the browser — no account, no server, your files stay with you."
+title: "AsciiMark"
+description: "A local-first AsciiDoc & Markdown viewer and editor — desktop app and Chrome extension. Renders locally, no telemetry."
 date: "2025-09-01"
-tags: ["markdown", "solidjs", "local-first"]
-external_url: "https://github.com/djalmajr/asciimark"
+tags: ["asciidoc", "markdown", "local-first", "tauri", "solidjs"]
+external_url: "https://djalmajr.github.io/asciimark/"
 featured: true
 ---
 
-**asciimark** is a local-first Markdown viewer and editor built for people who
-just want to open a file and read or write Markdown without ceremony. Everything
-runs in the browser: your documents never leave your device unless you choose to
-share them.
+**AsciiMark** is a local-first viewer and editor for **AsciiDoc and Markdown**.
+It runs as a desktop app (Tauri) and as a Chrome extension, rendering everything
+on your device — no account, no server, no telemetry.
 
-## Why
+![AsciiMark welcome screen](/projects/asciimark/welcome.png)
 
-Most Markdown tools either lock your content into a proprietary cloud or feel
-heavier than the task deserves. asciimark takes the opposite approach — it is
-fast, works offline, and treats your local files as the source of truth.
+## Purpose
+
+A fast, keyboard-first way to read and write technical docs straight from your
+local files. AsciiMark treats your filesystem as the source of truth and works
+fully offline — your documents never leave your device.
 
 ## Highlights
 
-- Local-first: your data lives with you, sync is optional.
-- Instant preview with a clean reading mode.
-- Built with SolidJS for a snappy, reactive UI.
-- Organized as a monorepo so the core can be reused across surfaces.
+- AsciiDoc (Asciidoctor) and Markdown (markdown-it) with Mermaid/Kroki diagrams
+  and KaTeX math.
+- Split panes, VS Code–style preview tabs, and a Reader/Zen mode.
+- Quick Open, Command Palette, Go to Heading, Workspace Symbols, Find in Files.
+- Backlinks panel and workspace-wide heading search.
+- Multi-root workspaces, file-system watcher, recent files and favorites.
+- Local-first: no analytics, no telemetry, no backend.
 
-The project is open source — you can explore the code and follow along on
-[GitHub](https://github.com/djalmajr/asciimark).
+![Split panes](/projects/asciimark/split-panes.png)
+
+![Command palette](/projects/asciimark/command-palette.png)
+
+## Availability
+
+AsciiMark is **source-available, not open source** — the source is public for
+transparency and security audits, but it is not licensed for reuse or
+redistribution. The app itself is free to use:
+
+- **Desktop** (macOS, Linux, Windows): [latest release](https://github.com/djalmajr/asciimark/releases/latest)
+- **Chrome extension**: [Chrome Web Store](https://chromewebstore.google.com/detail/asciimark/dmcihjkjbeckainfkaddpkeghlllmkbk)
+- **Website**: [djalmajr.github.io/asciimark](https://djalmajr.github.io/asciimark/)

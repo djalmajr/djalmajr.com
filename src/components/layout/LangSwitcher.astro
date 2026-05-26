@@ -1,0 +1,75 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import {
+  Locales,
+  LocaleLabels,
+  DEFAULT_LOCALE,
+  type Locale,
+} from "../../i18n/locales";
+
+const currentLocale = (Astro.currentLocale ?? DEFAULT_LOCALE) as Locale;
+
+// Strip the active locale prefix so we can rebuild the same route per locale.
+function stripLocale(pathname: string, loc: string): string {
+  const prefix = `/${loc}`;
+  if (pathname === prefix) return "/";
+  if (pathname.startsWith(`${prefix}/`)) return pathname.slice(prefix.length);
+  return pathname;
+}
+
+const cleanPath = Astro.url.pathname.replace(/\/+$/, "") || "/";
+const targetPath = stripLocale(cleanPath, currentLocale).replace(/^\//, "");
+
+const localeLinks = Locales.map(locale => ({
+  locale,
+  label: LocaleLabels[locale],
+  href: getRelativeLocaleUrl(locale, targetPath),
+  isCurrent: locale === currentLocale,
+}));
+---
+
+<details class="lang-switcher relative">
+  <summary
+    class="flex cursor-pointer list-none items-center gap-1 text-sm font-medium uppercase opacity-70 marker:content-none hover:opacity-100 [&::-webkit-details-marker]:hidden"
+    aria-label={LocaleLabels[currentLocale]}
+  >
+    {currentLocale}
+  </summary>
+  <ul
+    class="border-border bg-background absolute end-0 z-50 mt-2 min-w-32 overflow-hidden rounded-md border py-1 shadow-lg"
+  >
+    {
+      localeLinks.map(({ href, label, isCurrent }) => (
+        <li>
+          <a
+            href={href}
+            aria-current={isCurrent ? "true" : undefined}
+            class:list={[
+              "block px-3 py-1.5 text-sm opacity-70 hover:opacity-100",
+              { "font-semibold opacity-100": isCurrent },
+            ]}
+          >
+            {label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</details>
+
+<script>
+  function setupLangSwitcher() {
+    const items = document.querySelectorAll<HTMLDetailsElement>(
+      "details.lang-switcher"
+    );
+    if (!items.length) return;
+    document.addEventListener("click", e => {
+      const target = e.target as Node;
+      items.forEach(d => {
+        if (d.open && !d.contains(target)) d.open = false;
+      });
+    });
+  }
+  setupLangSwitcher();
+  document.addEventListener("astro:after-swap", setupLangSwitcher);
+</script>

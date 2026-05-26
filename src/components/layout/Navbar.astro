@@ -3,6 +3,7 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 import { NAV_LINKS, PAGES } from "../../config";
 import { useTranslations } from "../../i18n";
 import type { UIStrings } from "../../i18n/types";
+import LangSwitcher from "./LangSwitcher.astro";
 
 const locale = Astro.currentLocale ?? "en";
 const t = useTranslations(locale);
@@ -29,7 +30,7 @@ const links = NAV_LINKS.filter(link => {
 });
 ---
 
-<nav class="navbar">
+<nav class="navbar flex items-center justify-between gap-4">
   <ul class="nav-links">
     {
       links.map(link => (
@@ -47,4 +48,5 @@ const links = NAV_LINKS.filter(link => {
       ))
     }
   </ul>
+  <LangSwitcher />
 </nav>
