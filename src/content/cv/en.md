@@ -2,31 +2,40 @@
 name: "Djalma Jr."
 title: "Software Developer"
 experience:
-  - role: "Senior Frontend Engineer"
-    institution: "Remote"
-    period: "2021 - Present"
-    description: "Building web applications with TypeScript, design systems and modern frontend tooling, with a focus on performance and developer experience."
-  - role: "Full-stack Developer"
-    institution: "Remote"
-    period: "2016 - 2021"
-    description: "Delivered web products end to end, from APIs and data modeling to the UI, across several startups and product teams."
+  - role: "IT Consultant"
+    institution: "Run2biz"
+    period: "Jan 2023 – Apr 2026 · Remote"
+    description: "IT consulting and software development, working remotely."
+  - role: "Frontend Tech Lead"
+    institution: "Roga Labs"
+    period: "Mar 2021 – Jan 2023"
+    description: "Frontend technical leadership: architecture, standards definition and team mentoring."
+  - role: "Senior Frontend Developer"
+    institution: "Audora Tecnologia e Serviços"
+    period: "Aug 2014 – Mar 2021 · Maceió, Brazil"
+    description: "Prototyping and development of webapps/sites, mobile and desktop apps, and web services. Tech: React / React Native, Redux / Redux Saga, TypeScript, Sass / Less, WebComponents, C++ / Qt and Adobe XD."
 education:
-  - degree: "B.Sc. in Computer Science"
-    institution: "University"
-    period: "2010 - 2014"
-    description: "Foundations in algorithms, data structures and software engineering."
+  - degree: "B.Sc. in Information Systems"
+    institution: "Federal Institute of Alagoas (IFAL)"
+    period: "2015 – 2019"
+  - degree: "Computer Science"
+    institution: "Federal University of Alagoas (UFAL)"
+    period: "2009 – 2014"
+    description: "Transferred in the 5th semester to Information Systems at IFAL."
 ---
 
 ## Skills
 
 - TypeScript / JavaScript
-- React, SolidJS and modern frontend frameworks
-- Node.js and edge runtimes
-- Build tooling and CI/CD
-- Local-first architecture
+- React / React Native, SolidJS
+- Redux / Redux Saga
+- Sass / Less, WebComponents
+- C++ / Qt
+- Node.js, local-first architecture
 - Web performance and accessibility
 
 ## Summary
 
-I enjoy turning ideas into shippable products and improving the day-to-day tooling
-that teams rely on. I value clear code, fast feedback loops and pragmatic design.
+Software developer focused on the frontend, with over a decade of experience
+building webapps, mobile and desktop applications. I enjoy turning ideas into
+shippable products with clear code and pragmatic design.

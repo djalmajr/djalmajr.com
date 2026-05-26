@@ -16,25 +16,13 @@ const rssHref = getRelativeLocaleUrl(locale, "/rss.xml");
     <span class="body-xs">&copy; {currentYear} {SITE.author}.</span>
   </div>
   <div class="flex items-center gap-4">
-    <span class="body-xs hidden sm:inline-block"
-      >{t.footer.builtWith}
-      <a
-        href="https://github.com/rubzip/academic-portfolio-astro/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="link">Academic Portfolio Astro</a
-      ></span
-    >
     <a
       href="https://djalmajr.dev"
-      aria-label={t.footer.devSite}
       title={t.footer.devSite}
       target="_blank"
       rel="noopener noreferrer"
-      class="btn-icon"
+      class="body-xs link">djalmajr.dev</a
     >
-      <Icon name="ExternalLink" size={16} />
-    </a>
     <a
       href={rssHref}
       aria-label={t.buttons.rss}

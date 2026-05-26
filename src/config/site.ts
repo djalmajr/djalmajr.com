@@ -11,7 +11,7 @@ export const SITE: SiteConfig = {
   author: "Djalma Jr.",
   desc: "Personal site of Djalma Jr. — projects, portfolio and personal notes.",
   title: "Djalma Jr.",
-  ogImage: "og.webp",
+  ogImage: "avatar.jpg",
   postPerPage: 5,
   favicon: "/favicon.svg",
   lang: "en",

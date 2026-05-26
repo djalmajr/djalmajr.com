@@ -1,6 +1,6 @@
 ---
 name: "Djalma Jr."
-avatar: "images/placeholder.svg"
+avatar: "avatar.jpg"
 shortBio: "Desarrollador de software enfocado en la web, apps local-first y herramientas para devs."
 institution: "Remoto · Brasil"
 ---

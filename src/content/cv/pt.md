@@ -2,32 +2,40 @@
 name: "Djalma Jr."
 title: "Desenvolvedor de Software"
 experience:
-  - role: "Engenheiro Frontend Sênior"
-    institution: "Remoto"
-    period: "2021 - Presente"
-    description: "Construção de aplicações web com TypeScript, design systems e ferramentas modernas de frontend, com foco em performance e experiência do desenvolvedor."
-  - role: "Desenvolvedor Full-stack"
-    institution: "Remoto"
-    period: "2016 - 2021"
-    description: "Entrega de produtos web de ponta a ponta, das APIs e modelagem de dados à interface, em diversas startups e times de produto."
+  - role: "Consultor de TI"
+    institution: "Run2biz"
+    period: "jan 2023 – abr 2026 · Remoto"
+    description: "Consultoria em TI e desenvolvimento de software, atuando de forma remota."
+  - role: "Tech Lead Frontend"
+    institution: "Roga Labs"
+    period: "mar 2021 – jan 2023"
+    description: "Liderança técnica de frontend: arquitetura, definição de padrões e mentoria do time."
+  - role: "Programador Frontend Sênior"
+    institution: "Audora Tecnologia e Serviços"
+    period: "ago 2014 – mar 2021 · Maceió"
+    description: "Prototipação e desenvolvimento de webapps/sites, aplicativos mobile e desktop e web-services. Tecnologias: React / React Native, Redux / Redux Saga, TypeScript, Sass / Less, WebComponents, C++ / Qt e Adobe XD."
 education:
-  - degree: "Bacharelado em Ciência da Computação"
-    institution: "Universidade"
-    period: "2010 - 2014"
-    description: "Fundamentos em algoritmos, estruturas de dados e engenharia de software."
+  - degree: "Bacharelado em Sistemas de Informação"
+    institution: "Instituto Federal de Alagoas (IFAL)"
+    period: "2015 – 2019"
+  - degree: "Ciência da Computação"
+    institution: "Universidade Federal de Alagoas (UFAL)"
+    period: "2009 – 2014"
+    description: "Transferência no 5º período para Sistemas de Informação no IFAL."
 ---
 
 ## Habilidades
 
 - TypeScript / JavaScript
-- React, SolidJS e frameworks modernos de frontend
-- Node.js e runtimes de edge
-- Ferramentas de build e CI/CD
-- Arquitetura local-first
+- React / React Native, SolidJS
+- Redux / Redux Saga
+- Sass / Less, WebComponents
+- C++ / Qt
+- Node.js, arquitetura local-first
 - Performance web e acessibilidade
 
 ## Resumo
 
-Gosto de transformar ideias em produtos prontos para entrega e de melhorar as
-ferramentas do dia a dia das quais os times dependem. Valorizo código claro,
-ciclos de feedback rápidos e design pragmático.
+Desenvolvedor de software com foco em frontend e mais de uma década de experiência
+construindo webapps, aplicativos mobile e desktop. Gosto de transformar ideias em
+produtos prontos para entrega, com código claro e design pragmático.
