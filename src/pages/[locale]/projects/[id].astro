@@ -1,20 +1,15 @@
 ---
 import type { GetStaticPaths } from "astro";
-import { getCollection } from "astro:content";
 import { NonDefaultLocales } from "../../../i18n/locales";
+import { getSlugs } from "../../../utils/localeContent";
 import ProjectDetailPage from "../../projects/[id].astro";
 
 export const getStaticPaths = (async () => {
-  const projects = await getCollection("projects");
+  const slugs = await getSlugs("projects");
   return NonDefaultLocales.flatMap(locale =>
-    projects.map(project => ({
-      params: { locale, id: project.id },
-      props: { project },
-    }))
+    slugs.map(slug => ({ params: { locale, id: slug } }))
   );
 }) satisfies GetStaticPaths;
-
-const { project } = Astro.props;
 ---
 
-<ProjectDetailPage {project} />
+<ProjectDetailPage />

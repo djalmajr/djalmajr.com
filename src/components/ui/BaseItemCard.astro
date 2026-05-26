@@ -1,6 +1,7 @@
 ---
 import Tag from "./Tag.astro";
 import Icon from "./Icon.astro";
+import { useTranslations } from "../../i18n";
 
 interface Props {
   title: string;
@@ -13,16 +14,10 @@ interface Props {
   externalUrl?: string;
 }
 
-const {
-  title,
-  href,
-  description,
-  date,
-  authors,
-  extraInput,
-  tags,
-  externalUrl,
-} = Astro.props;
+const t = useTranslations(Astro.currentLocale ?? "en");
+
+const { title, href, description, date, authors, extraInput, tags } =
+  Astro.props;
 ---
 
 <article class="card">
@@ -69,18 +64,7 @@ const {
     {description && <p class="card-desc">{description}</p>}
   </div>
 
-  {
-    externalUrl && (
-      <div class="flex-shrink-0">
-        <a
-          href={externalUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="card-link"
-        >
-          View
-        </a>
-      </div>
-    )
-  }
+  <div class="flex-shrink-0">
+    <a href={href} class="card-link">{t.buttons.view}</a>
+  </div>
 </article>

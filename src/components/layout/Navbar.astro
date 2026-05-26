@@ -1,13 +1,25 @@
 ---
 import { getRelativeLocaleUrl } from "astro:i18n";
-import { NAV_LINKS, PAGES } from "../../config";
+import { NAV_LINKS, PAGES, THEME_CONFIG } from "../../config";
 import { useTranslations } from "../../i18n";
 import type { UIStrings } from "../../i18n/types";
 import LangSwitcher from "./LangSwitcher.astro";
+import Icon from "../ui/Icon.astro";
 
 const locale = Astro.currentLocale ?? "en";
 const t = useTranslations(locale);
 const currentPath = Astro.url.pathname;
+const rssHref = getRelativeLocaleUrl(locale, "/rss.xml");
+const showToggle = THEME_CONFIG.lightAndDark;
+
+const NAV_ICONS: Record<string, string> = {
+  home: "Home",
+  projects: "Briefcase",
+  posts: "FileText",
+  cv: "FileText",
+  tags: "Hash",
+  dev: "ExternalLink",
+};
 
 const links = NAV_LINKS.filter(link => {
   if (link.external) return link.isActive !== false;
@@ -30,7 +42,7 @@ const links = NAV_LINKS.filter(link => {
 });
 ---
 
-<nav class="navbar flex items-center justify-between gap-4">
+<nav class="navbar flex items-center gap-4">
   <ul class="nav-links">
     {
       links.map(link => (
@@ -39,8 +51,11 @@ const links = NAV_LINKS.filter(link => {
             href={link.href}
             target={link.external ? "_blank" : undefined}
             rel={link.external ? "noopener noreferrer" : undefined}
-            class={`nav-link ${link.isActive ? "active" : "inactive"}`}
+            class={`nav-link inline-flex items-center gap-1.5 ${link.isActive ? "active" : "inactive"}`}
           >
+            {link.key && NAV_ICONS[link.key] && (
+              <Icon name={NAV_ICONS[link.key]} size={16} />
+            )}
             {link.label}
             <span class="nav-link-line" />
           </a>
@@ -48,5 +63,29 @@ const links = NAV_LINKS.filter(link => {
       ))
     }
   </ul>
-  <LangSwitcher />
+  <div class="flex items-center gap-3">
+    <a
+      href={rssHref}
+      aria-label={t.buttons.rss}
+      title={t.buttons.rss}
+      target="_blank"
+      rel="noreferrer"
+      class="opacity-70 transition-opacity hover:opacity-100"
+    >
+      <Icon name="RSS" size={18} />
+    </a>
+    {
+      showToggle && (
+        <button
+          id="theme-toggle"
+          aria-label={t.buttons.themeToggle}
+          class="flex cursor-pointer items-center opacity-70 transition-opacity hover:opacity-100"
+        >
+          <Icon name="Sun" size={18} class="hidden dark:block" />
+          <Icon name="Moon" size={18} class="block dark:hidden" />
+        </button>
+      )
+    }
+    <LangSwitcher />
+  </div>
 </nav>

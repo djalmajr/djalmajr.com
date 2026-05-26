@@ -4,6 +4,7 @@ import { getRelativeLocaleUrl } from "astro:i18n";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BaseItemCard from "../components/ui/BaseItemCard.astro";
 import { getListingItem } from "../utils/adapters";
+import { getLocalizedEntries, slugFromId } from "../utils/localeContent";
 import { useTranslations, tplStr } from "../i18n";
 
 interface Props {
@@ -31,10 +32,20 @@ const {
 const locale = Astro.currentLocale ?? "en";
 const t = useTranslations(locale);
 
-let entries =
-  manualEntries ||
-  (collection !== "all" ? await getCollection(collection as any) : []);
-if (page) entries = page.data;
+const isLocalized = collection === "projects" || collection === "posts";
+
+let entries: any[];
+if (manualEntries) {
+  entries = manualEntries;
+} else if (page) {
+  entries = page.data;
+} else if (isLocalized) {
+  entries = await getLocalizedEntries(collection as any, locale);
+} else if (collection !== "all") {
+  entries = await getCollection(collection as any);
+} else {
+  entries = [];
+}
 
 const sortedEntries = entries.sort((a: any, b: any) => {
   const dateA = a.data.date ? new Date(a.data.date).getTime() : 0;
@@ -57,7 +68,8 @@ const sortedEntries = entries.sort((a: any, b: any) => {
     {
       sortedEntries.map((entry: any) => {
         const item = getListingItem(entry);
-        const href = getRelativeLocaleUrl(locale, `/${collection}/${entry.id}`);
+        const slug = isLocalized ? slugFromId(entry.id) : entry.id;
+        const href = getRelativeLocaleUrl(locale, `/${collection}/${slug}`);
         return <BaseItemCard {...item} href={href} />;
       })
     }

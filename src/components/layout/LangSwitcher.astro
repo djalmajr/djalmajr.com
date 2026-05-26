@@ -6,6 +6,7 @@ import {
   DEFAULT_LOCALE,
   type Locale,
 } from "../../i18n/locales";
+import Flag from "../ui/Flag.astro";
 
 const currentLocale = (Astro.currentLocale ?? DEFAULT_LOCALE) as Locale;
 
@@ -30,25 +31,27 @@ const localeLinks = Locales.map(locale => ({
 
 <details class="lang-switcher relative">
   <summary
-    class="flex cursor-pointer list-none items-center gap-1 text-sm font-medium uppercase opacity-70 marker:content-none hover:opacity-100 [&::-webkit-details-marker]:hidden"
+    class="flex cursor-pointer list-none items-center opacity-80 marker:content-none hover:opacity-100 [&::-webkit-details-marker]:hidden"
     aria-label={LocaleLabels[currentLocale]}
+    title={LocaleLabels[currentLocale]}
   >
-    {currentLocale}
+    <Flag locale={currentLocale} class="block h-3.5 w-5 rounded-[2px]" />
   </summary>
   <ul
-    class="border-border bg-background absolute end-0 z-50 mt-2 min-w-32 overflow-hidden rounded-md border py-1 shadow-lg"
+    class="border-border bg-background absolute end-0 z-50 mt-2 min-w-32 list-none overflow-hidden rounded-md border py-1 shadow-lg"
   >
     {
-      localeLinks.map(({ href, label, isCurrent }) => (
-        <li>
+      localeLinks.map(({ locale, href, label, isCurrent }) => (
+        <li class="list-none">
           <a
             href={href}
             aria-current={isCurrent ? "true" : undefined}
             class:list={[
-              "block px-3 py-1.5 text-sm opacity-70 hover:opacity-100",
+              "flex items-center gap-2 py-1.5 pr-4 pl-2.5 text-sm no-underline opacity-70 hover:opacity-100",
               { "font-semibold opacity-100": isCurrent },
             ]}
           >
+            <Flag locale={locale} class="block h-3 w-[18px] rounded-[2px]" />
             {label}
           </a>
         </li>

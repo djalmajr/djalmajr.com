@@ -1,26 +1,15 @@
 ---
 import type { GetStaticPaths } from "astro";
-import { getCollection } from "astro:content";
 import { NonDefaultLocales } from "../../../i18n/locales";
-import { sortPostsByDate } from "../../../utils/posts";
+import { getSlugs } from "../../../utils/localeContent";
 import PostDetailPage from "../../posts/[id].astro";
 
 export const getStaticPaths = (async () => {
-  const posts = await getCollection("posts");
-  const sortedPosts = sortPostsByDate(posts);
+  const slugs = await getSlugs("posts");
   return NonDefaultLocales.flatMap(locale =>
-    sortedPosts.map((post, i) => ({
-      params: { locale, id: post.id },
-      props: {
-        post,
-        prevPost: i > 0 ? sortedPosts[i - 1] : null,
-        nextPost: i < sortedPosts.length - 1 ? sortedPosts[i + 1] : null,
-      },
-    }))
+    slugs.map(slug => ({ params: { locale, id: slug } }))
   );
 }) satisfies GetStaticPaths;
-
-const { post, prevPost, nextPost } = Astro.props;
 ---
 
-<PostDetailPage {post} {prevPost} {nextPost} />
+<PostDetailPage />

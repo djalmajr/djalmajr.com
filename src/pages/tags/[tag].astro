@@ -19,7 +19,7 @@ const { tagName } = Astro.props;
 const locale = Astro.currentLocale ?? "en";
 const t = useTranslations(locale);
 
-const content = await getContentByTag(tagName);
+const content = await getContentByTag(tagName, locale);
 ---
 
 <BaseLayout title={`#${tagName}`}>
@@ -34,7 +34,7 @@ const content = await getContentByTag(tagName);
         const listingItem = getListingItem(item);
         const href = getRelativeLocaleUrl(
           locale,
-          `/${item.collection}/${item.id}`
+          `/${item.collection}/${item.slug}`
         );
         return <BaseItemCard {...listingItem} href={href} />;
       })

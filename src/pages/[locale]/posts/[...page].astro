@@ -1,20 +1,23 @@
 ---
 import type { GetStaticPaths } from "astro";
-import { getCollection } from "astro:content";
 import { NonDefaultLocales } from "../../../i18n/locales";
 import { SITE } from "../../../config";
+import { getLocalizedEntries } from "../../../utils/localeContent";
 import { sortPostsByDate } from "../../../utils/posts";
 import PostsListPage from "../../posts/[...page].astro";
 
 export const getStaticPaths = (async ({ paginate }) => {
-  const posts = await getCollection("posts");
-  const sortedPosts = sortPostsByDate(posts);
-  return NonDefaultLocales.flatMap(locale =>
-    paginate(sortedPosts, {
-      params: { locale },
-      pageSize: SITE.postPerPage,
+  const pages = await Promise.all(
+    NonDefaultLocales.map(async locale => {
+      const posts = await getLocalizedEntries("posts", locale);
+      const sorted = sortPostsByDate(posts as any);
+      return paginate(sorted, {
+        params: { locale },
+        pageSize: SITE.postPerPage,
+      });
     })
   );
+  return pages.flat();
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;

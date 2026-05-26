@@ -1,15 +1,18 @@
 ---
 import type { GetStaticPaths } from "astro";
-import { getCollection } from "astro:content";
 import BaseListing from "../../layouts/BaseListing.astro";
 import { SITE, PAGES } from "../../config";
+import { DEFAULT_LOCALE } from "../../i18n/locales";
+import { getLocalizedEntries } from "../../utils/localeContent";
 import { sortPostsByDate } from "../../utils/posts";
 import { useTranslations } from "../../i18n";
 
 export const getStaticPaths = (async ({ paginate }) => {
   if (PAGES.blog.isActive === false) return [];
-  const posts = await getCollection("posts");
-  return paginate(sortPostsByDate(posts), { pageSize: SITE.postPerPage });
+  const posts = await getLocalizedEntries("posts", DEFAULT_LOCALE);
+  return paginate(sortPostsByDate(posts as any), {
+    pageSize: SITE.postPerPage,
+  });
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;

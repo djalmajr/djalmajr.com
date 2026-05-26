@@ -1,7 +1,7 @@
 ---
-import { getCollection } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import BaseDetail from "../../layouts/BaseDetail.astro";
+import { getSlugs } from "../../utils/localeContent";
 import { PAGES } from "../../config";
 
 const locale = Astro.currentLocale ?? "en";
@@ -12,11 +12,8 @@ if (PAGES.projects.isActive === false) {
 
 export async function getStaticPaths() {
   if (PAGES.projects.isActive === false) return [];
-  const projects = await getCollection("projects");
-  return projects.map((project: any) => ({
-    params: { id: project.id },
-    props: { project },
-  }));
+  const slugs = await getSlugs("projects");
+  return slugs.map(slug => ({ params: { id: slug }, props: {} }));
 }
 
 const { id } = Astro.params;

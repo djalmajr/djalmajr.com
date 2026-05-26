@@ -1,8 +1,12 @@
 ---
-import { getCollection } from "astro:content";
 import { getAbsoluteLocaleUrl, getRelativeLocaleUrl } from "astro:i18n";
 import BaseDetail from "../../layouts/BaseDetail.astro";
 import ShareButtons from "../../components/ui/ShareButtons.astro";
+import {
+  getLocalizedEntries,
+  getSlugs,
+  slugFromId,
+} from "../../utils/localeContent";
 import { sortPostsByDate } from "../../utils/posts";
 import { PAGES } from "../../config";
 import { useTranslations } from "../../i18n";
@@ -16,30 +20,31 @@ if (PAGES.blog.isActive === false) {
 
 export async function getStaticPaths() {
   if (PAGES.blog.isActive === false) return [];
-  const posts = await getCollection("posts");
-  const sortedPosts = sortPostsByDate(posts);
-
-  return sortedPosts.map((post, i) => ({
-    params: { id: post.id },
-    props: {
-      post,
-      prevPost: i > 0 ? sortedPosts[i - 1] : null,
-      nextPost: i < sortedPosts.length - 1 ? sortedPosts[i + 1] : null,
-    },
-  }));
+  const slugs = await getSlugs("posts");
+  return slugs.map(slug => ({ params: { id: slug }, props: {} }));
 }
 
-const { post, prevPost, nextPost } = Astro.props;
-const postUrl = getAbsoluteLocaleUrl(locale, `/posts/${post.id}`);
+const { id } = Astro.params;
+
+// Determine prev/next within the current locale's (fallback-filled) post set.
+const localized = await getLocalizedEntries("posts", locale);
+const sorted = sortPostsByDate(localized as any);
+const index = sorted.findIndex(p => slugFromId(p.id) === id);
+const current = sorted[index];
+const prevPost = index > 0 ? sorted[index - 1] : null;
+const nextPost =
+  index >= 0 && index < sorted.length - 1 ? sorted[index + 1] : null;
+
+const postUrl = getAbsoluteLocaleUrl(locale, `/posts/${id}`);
 const prevHref = prevPost
-  ? getRelativeLocaleUrl(locale, `/posts/${prevPost.id}`)
+  ? getRelativeLocaleUrl(locale, `/posts/${slugFromId(prevPost.id)}`)
   : "";
 const nextHref = nextPost
-  ? getRelativeLocaleUrl(locale, `/posts/${nextPost.id}`)
+  ? getRelativeLocaleUrl(locale, `/posts/${slugFromId(nextPost.id)}`)
   : "";
 ---
 
-<BaseDetail collection="posts" id={post.id}>
+<BaseDetail collection="posts" id={id}>
   <nav
     slot="footer"
     class="post-navigation container-narrow mt-24 flex justify-between gap-8 pt-12"
@@ -78,9 +83,9 @@ const nextHref = nextPost
   </nav>
   <div slot="share" class="container-narrow">
     <ShareButtons
-      title={post.data.title}
+      title={current?.data.title}
       url={postUrl}
-      description={post.data.description}
+      description={current?.data.description}
     />
   </div>
 </BaseDetail>

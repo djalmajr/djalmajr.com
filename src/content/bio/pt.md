@@ -1,24 +1,18 @@
 ---
 name: "Djalma Jr."
 avatar: "avatar.jpg"
-shortBio: "Desenvolvedor de software focado na web, apps local-first e ferramentas para devs."
-institution: "Remoto · Brasil"
+shortBio: "Fé e teologia, reflexões e algumas notas pelo caminho."
+institution: "Brasil"
 ---
 
-Sou um desenvolvedor de software que gosta de construir produtos para a web — de interfaces bem acabadas às ferramentas que mantêm um código saudável. Me importo com experiências rápidas, acessíveis e com um código que dá prazer de manter.
+Sou o Djalma. Este é meu espaço pessoal, separado do trabalho com software — um
+lugar pra escrever sobre o que ando pensando, fora dos assuntos técnicos.
 
-## O que eu faço
+Costumo escrever sobre três coisas: fé e teologia (o que creio, as perguntas às
+quais sempre volto e como isso aparece no dia a dia), reflexões sobre a vida e o
+trabalho, e algumas notas e dicas que vale a pena guardar.
 
-Trabalho principalmente com TypeScript em toda a stack: frameworks modernos de frontend, ferramentas de build e, eventualmente, algum serviço de backend. Ultimamente venho explorando software **local-first**, onde os dados vivem com o usuário e a sincronização é um complemento, não um requisito.
+Sem cronograma nem ordem certa — é mais um caderno de ideias conforme elas
+aparecem.
 
-## Atualmente
-
-Estou construindo o [asciimark](https://github.com/djalmajr/asciimark), um visualizador e editor de Markdown local-first, e escrevendo sobre as coisas que aprendo pelo caminho.
-
-## Interesses
-
-Performance web, experiência do desenvolvedor, design systems, arquitetura local-first e projetos paralelos.
-
----
-
-Você encontra meu trabalho mais focado em engenharia em [djalmajr.dev](https://djalmajr.dev).
+Meu trabalho com software fica no [djalmajr.dev](https://djalmajr.dev).

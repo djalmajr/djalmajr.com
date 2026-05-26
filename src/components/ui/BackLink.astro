@@ -1,5 +1,6 @@
 ---
 import { useTranslations, tplStr } from "../../i18n";
+import Icon from "./Icon.astro";
 
 interface Props {
   href: string;
@@ -12,6 +13,7 @@ const locale = Astro.currentLocale ?? "en";
 const t = useTranslations(locale);
 ---
 
-<a href={href} class="back-link">
+<a href={href} class="back-link inline-flex items-center gap-1">
+  <Icon name="ArrowLeft" size={14} />
   {tplStr(t.buttons.backLink, { section: label })}
 </a>

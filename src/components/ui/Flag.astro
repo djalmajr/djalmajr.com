@@ -1,0 +1,56 @@
+---
+// Inline SVG flags (self-contained, no emoji/font variance across OSes).
+// Simplified rectangular takes recognizable at small sizes. en→US, pt→Brazil, es→Spain.
+interface Props {
+  locale: string;
+  class?: string;
+}
+
+const { locale, class: cls = "h-3.5 w-5 rounded-[2px]" } = Astro.props;
+---
+
+{
+  locale === "pt" && (
+    <svg
+      aria-hidden="true"
+      class={cls}
+      viewBox="0 0 20 14"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect width="20" height="14" fill="#009b3a" />
+      <polygon points="10,2 18,7 10,12 2,7" fill="#ffdf00" />
+      <circle cx="10" cy="7" r="2.4" fill="#002776" />
+    </svg>
+  )
+}
+{
+  locale === "es" && (
+    <svg
+      aria-hidden="true"
+      class={cls}
+      viewBox="0 0 20 14"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect width="20" height="3.5" y="0" fill="#aa151b" />
+      <rect width="20" height="7" y="3.5" fill="#f1bf00" />
+      <rect width="20" height="3.5" y="10.5" fill="#aa151b" />
+    </svg>
+  )
+}
+{
+  locale === "en" && (
+    <svg
+      aria-hidden="true"
+      class={cls}
+      viewBox="0 0 20 14"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect width="20" height="14" fill="#ffffff" />
+      <rect width="20" height="2" y="0" fill="#b22234" />
+      <rect width="20" height="2" y="4" fill="#b22234" />
+      <rect width="20" height="2" y="8" fill="#b22234" />
+      <rect width="20" height="2" y="12" fill="#b22234" />
+      <rect width="8" height="7.5" fill="#3c3b6e" />
+    </svg>
+  )
+}

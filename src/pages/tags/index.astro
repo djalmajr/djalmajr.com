@@ -32,9 +32,9 @@ function getTagSize(count: number): "sm" | "md" | "lg" {
       meta={[{ value: tplStr(t.tags.uniqueTopics, { count: tags.length }) }]}
     />
 
-    <div class="container-narrow pt-12">
+    <div class="container-narrow">
       <div
-        class="stagger-fade-in flex min-h-[300px] flex-wrap items-center justify-center gap-4"
+        class="stagger-fade-in flex flex-wrap items-center justify-start gap-3"
       >
         {
           tags.map(tag => (

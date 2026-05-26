@@ -1,19 +1,16 @@
 ---
-import { getRelativeLocaleUrl } from "astro:i18n";
-import { SITE, THEME_CONFIG } from "../../config";
+import { SITE } from "../../config";
 import { useTranslations } from "../../i18n";
 import Icon from "../ui/Icon.astro";
 
 const locale = Astro.currentLocale ?? "en";
 const t = useTranslations(locale);
 const currentYear = new Date().getFullYear();
-const showToggle = THEME_CONFIG.lightAndDark;
-const rssHref = getRelativeLocaleUrl(locale, "/rss.xml");
 ---
 
 <footer class="footer">
   <div class="flex items-center gap-4">
-    <span class="body-xs">&copy; {currentYear} {SITE.author}.</span>
+    <span class="body-xs">&copy; {currentYear} {SITE.author}</span>
   </div>
   <div class="flex items-center gap-4">
     <a
@@ -21,29 +18,10 @@ const rssHref = getRelativeLocaleUrl(locale, "/rss.xml");
       title={t.footer.devSite}
       target="_blank"
       rel="noopener noreferrer"
-      class="body-xs link">djalmajr.dev</a
+      class="body-xs link inline-flex items-center gap-1"
     >
-    <a
-      href={rssHref}
-      aria-label={t.buttons.rss}
-      title={t.buttons.rss}
-      target="_blank"
-      rel="noreferrer"
-      class="btn-icon"
-    >
-      <Icon name="RSS" size={16} />
+      djalmajr.dev
+      <Icon name="ExternalLink" size={12} />
     </a>
-    {
-      showToggle && (
-        <button
-          id="theme-toggle"
-          aria-label={t.buttons.themeToggle}
-          class="btn-icon"
-        >
-          <Icon name="Sun" size={16} class="hidden dark:block" />
-          <Icon name="Moon" size={16} class="block dark:hidden" />
-        </button>
-      )
-    }
   </div>
 </footer>

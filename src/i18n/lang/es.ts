@@ -10,6 +10,7 @@ export default {
     sharePost: "Compartir:",
     shareVia: "Compartir vía {{platform}}",
     themeToggle: "Cambiar tema",
+    view: "Ver",
     viewExternal: "Ver original",
   },
   footer: {
@@ -20,7 +21,7 @@ export default {
   nav: {
     cv: "CV",
     dev: "Dev",
-    home: "Acerca de",
+    home: "Inicio",
     posts: "Blog",
     projects: "Portafolio",
     tags: "Etiquetas",
@@ -36,7 +37,7 @@ export default {
     education: "Formación",
     experience: "Experiencia profesional",
     homeSubtitle: "",
-    homeTitle: "Acerca de mí",
+    homeTitle: "Inicio",
     postsSubtitle: "Notas personales, ideas y cosas que me interesan.",
     postsTitle: "Blog",
     projectsSubtitle: "Cosas que he construido.",

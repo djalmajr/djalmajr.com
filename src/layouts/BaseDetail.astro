@@ -1,11 +1,12 @@
 ---
-import { getEntry, render } from "astro:content";
+import { render } from "astro:content";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import BaseLayout from "./BaseLayout.astro";
 import BackLink from "../components/ui/BackLink.astro";
 import Tag from "../components/ui/Tag.astro";
 import Icon from "../components/ui/Icon.astro";
 import { getDetailItem } from "../utils/adapters";
+import { getLocalizedEntry } from "../utils/localeContent";
 import { SITE } from "../config";
 import { useTranslations } from "../i18n";
 
@@ -19,7 +20,7 @@ const { collection, id } = Astro.props;
 const locale = Astro.currentLocale ?? "en";
 const t = useTranslations(locale);
 
-const entry = (await getEntry(collection, id)) as any;
+const entry = (await getLocalizedEntry(collection, locale, id)) as any;
 
 if (!entry) return Astro.redirect(getRelativeLocaleUrl(locale, "/404"));
 
@@ -51,9 +52,10 @@ const ogImage = entry.data.image || SITE.ogImage;
           href={detail.externalUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="link"
+          class="text-muted hover:text-foreground body-xs inline-flex items-center gap-1 transition-colors"
         >
           {t.buttons.viewExternal}
+          <Icon name="ExternalLink" size={12} />
         </a>
       )
     }

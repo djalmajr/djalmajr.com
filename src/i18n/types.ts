@@ -8,6 +8,7 @@ export interface UIStrings {
     sharePost: string;
     shareVia: string;
     themeToggle: string;
+    view: string;
     viewExternal: string;
   };
   footer: {
